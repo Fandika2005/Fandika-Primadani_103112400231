@@ -1,36 +1,34 @@
 #include <iostream>
 using namespace std;
 
-string satuan[] = {"", "Satu", "Dua", "Tiga", "Empat", "Lima",
-                   "Enam", "Tujuh", "Delapan", "Sembilan"};
-string belasan[] = {"Sepuluh", "Sebelas", "Dua Belas", "Tiga Belas", "Empat Belas",
-                    "Lima Belas", "Enam Belas", "Tujuh Belas", "Delapan Belas", "Sembilan Belas"};
-string puluhan[] = {"", "", "Dua Puluh", "Tiga Puluh", "Empat Puluh", "Lima Puluh",
-                    "Enam Puluh", "Tujuh Puluh", "Delapan Puluh", "Sembilan Puluh"};
-
-string terbilang(int n) {
-    if (n == 0) return "Nol";
-    else if (n == 100) return "Seratus";
-    else if (n < 10) return satuan[n];
-    else if (n < 20) return belasan[n - 10];
-    else {
-        int p = n / 10;
-        int s = n % 10;
-        if (s == 0) return puluhan[p];
-        else return puluhan[p] + " " + satuan[s];
-    }
-}
-
 int main() {
-    int angka;
-    cout << "Masukkan angka : ";
-    cin >> angka;
+    int N;
+    cout << "Masukkan jumlah array : ";
+    cin >> N;
 
-    if (angka < 0 || angka > 100) {
-        cout << "Angka di luar jangkauan!" << endl;
-    } else {
-        cout << angka << " : " << terbilang(angka) << endl;
+    int *arr = new int[N];
+    int *ptr = arr;
+
+    cout << "\nMasukkan " << N << " bilangan bulat:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "Elemen ke-" << i + 1 << ": ";
+        cin >> *(ptr + i);
     }
+    int jumlah = 0;
+    int maks = *ptr;
+    int min = *ptr;
 
+    for (int i = 0; i < N; i++) {
+        int nilai = *(ptr + i);
+        jumlah += nilai;
+        if (nilai > maks) maks = nilai;
+        if (nilai < min) min = nilai;
+    }
+    cout << "\n=== HASIL PERHITUNGAN ===\n";
+    cout << "Jumlah seluruh bilangan: " << jumlah << endl;
+    cout << "Nilai maksimum: " << maks << endl;
+    cout << "Nilai minimum: " << min << endl;
+
+    delete[] arr;
     return 0;
 }
